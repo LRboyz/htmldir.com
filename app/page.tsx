@@ -1,32 +1,9 @@
 import { ThemeSwitch } from "@/components/theme-switch";
-import VisitorCount from "@/components/visitor";
 import { FaTwitter, FaEnvelope } from "react-icons/fa";
-import { getClient } from "@umami/api-client";
-
-const client = getClient();
 
 export default async function Home() {
-  const { ok, data = { pageviews: [], sessions: [] } } =
-    await client.getWebsitePageviews(
-      process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID!,
-      {
-        startAt: new Date().setHours(0, 0, 0, 0),
-        endAt: new Date().setHours(23, 59, 59, 999),
-        unit: "day",
-        timezone: "America/New_York",
-      }
-    );
-
-  const { data: activeData } = await client.getWebsiteActive(
-    process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID!
-  );
-
   return (
     <section className="flex flex-col items-center justify-center h-screen dark:bg-black p-4 overflow-hidden">
-      <div className="absolute top-4 left-4">
-        <VisitorCount data={data} active={activeData?.x ?? 0} />
-      </div>
-
       <div className="absolute top-4 right-4">
         <ThemeSwitch />
       </div>
