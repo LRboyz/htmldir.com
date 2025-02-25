@@ -6,28 +6,32 @@ import { getClient } from "@umami/api-client";
 const client = getClient();
 
 export default async function Home() {
-  const UMAMI_API_KEY = process.env.UMAMI_API_KEY;
+  const { ok, data = { pageviews: [], sessions: [] } } =
+    await client.getWebsitePageviews(
+      process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID!,
+      {
+        startAt: new Date().setHours(0, 0, 0, 0),
+        endAt: new Date().setHours(23, 59, 59, 999),
+        unit: "day",
+        timezone: "America/New_York",
+      }
+    );
 
-  const { ok, data } = await client.getWebsitePageviews(UMAMI_API_KEY!, {
-    startAt: new Date().setHours(0, 0, 0, 0),
-    endAt: new Date().setHours(23, 59, 59, 999),
-    unit: "day",
-    timezone: "America/New_York",
-  });
-
-  console.log(ok, data);
+  const { data: activeData } = await client.getWebsiteActive(
+    process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID!
+  );
 
   return (
     <section className="flex flex-col items-center justify-center h-screen dark:bg-black p-4 overflow-hidden">
       <div className="absolute top-4 left-4">
-        <VisitorCount />
+        <VisitorCount data={data} active={activeData?.x ?? 0} />
       </div>
 
       <div className="absolute top-4 right-4">
         <ThemeSwitch />
       </div>
 
-      <div className="max-w-lg w-full bg-white dark:bg-neutral-800 overflow-hidden">
+      <div className="max-w-lg w-full bg-white dark:bg-neutral-800 px-4  py-6  rounded-3xl overflow-hidden">
         <div className="p-4 sm:p-8">
           {/* Domain Name - Now More Prominent */}
           <div className="mb-8">
@@ -54,7 +58,7 @@ export default async function Home() {
           </div>
 
           {/* Footer - Contact Buttons */}
-          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-4">
             <a
               href="lr603552916@gmail.com"
               className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium"
