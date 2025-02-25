@@ -6,15 +6,14 @@ import { getClient } from "@umami/api-client";
 const client = getClient();
 
 export default async function Home() {
-  const { ok, data, status, error } = await client.getWebsitePageviews(
-    "239479af-351d-4a66-9b53-0e393aecdec1",
-    {
-      startAt: new Date().setHours(0, 0, 0, 0),
-      endAt: new Date().setHours(23, 59, 59, 999),
-      unit: "day",
-      timezone: "America/New_York",
-    }
-  );
+  const UMAMI_API_KEY = process.env.UMAMI_API_KEY;
+
+  const { ok, data } = await client.getWebsitePageviews(UMAMI_API_KEY!, {
+    startAt: new Date().setHours(0, 0, 0, 0),
+    endAt: new Date().setHours(23, 59, 59, 999),
+    unit: "day",
+    timezone: "America/New_York",
+  });
 
   console.log(ok, data);
 

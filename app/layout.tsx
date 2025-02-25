@@ -32,6 +32,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const UMAMI_API_KEY = process.env.UMAMI_API_KEY;
   return (
     <html suppressHydrationWarning lang="en">
       <head />
@@ -44,7 +45,7 @@ export default function RootLayout({
         <Script
           defer
           src="https://cloud.umami.is/script.js"
-          data-website-id="239479af-351d-4a66-9b53-0e393aecdec1"
+          data-website-id={UMAMI_API_KEY}
         ></Script>
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           {children}

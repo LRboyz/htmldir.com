@@ -42,7 +42,7 @@ const VisitorCount: React.FC<VisitorCountProps> = ({ className = "" }) => {
     >
       <FaUserFriends className="w-5 h-5" />
       <span className="text-sm">
-        Today's Visitors: {visitorCount.toLocaleString()}
+        Today&apos;s Visitors: {visitorCount.toLocaleString()}
       </span>
     </div>
   );
