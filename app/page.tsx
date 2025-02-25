@@ -60,7 +60,7 @@ export default async function Home() {
           {/* Footer - Contact Buttons */}
           <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-4">
             <a
-              href="lr603552916@gmail.com"
+              href="mailto:lr603552916@gmail.com"
               className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium"
             >
               <FaEnvelope className="text-lg" />
